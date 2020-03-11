@@ -1,6 +1,57 @@
 import time
 #import binascii
 
+#Codigo para  Codificar Manchester
+def manchester(mensaje):
+
+    array = []
+    codificacion = []
+    #codManch = [(len(mensaje)*2)]
+
+    for j in range(int(len(mensaje))):
+
+        array = mensaje[j]
+        if(array == '0'):
+            codificacion.append(1)
+            codificacion.append(0)
+
+        elif (array == '1'):
+            codificacion.append(0)
+            codificacion.append(1)
+
+    codigo = ''.join(map(str, codificacion))
+
+    return codigo
+
+# Descodificacion
+def desManchester(mensaje):
+
+    array = []
+    desCod = []
+    i = 0
+
+    for j in range(int(len(mensaje))):
+
+        array.append(mensaje[j])
+
+    while i < (len(mensaje)):
+        if(array[i] == '1' and array[i+1] == '0'):
+
+            desCod.append(0)
+
+        elif(array[i] == '0' and array[i+1] == '1'):
+
+            desCod.append(1)
+
+        i += 2
+
+    desCodigo = ''.join(map(str, desCod))
+
+    return desCodigo
+
+
+
+
 print ("Simulador de un canal de comunicaciones \n")
 time.sleep(1)
 #Abrir archivo y mostrarlo
@@ -30,6 +81,16 @@ time.sleep(2)
 print (mensajeBin)
 time.sleep(1)
 
+
+
+#Codificacion manchester
+
+mensajeBin = manchester(mensajeBin)
+f = open ("manchester.txt", "w")
+f.write (mensajeBin)
+f.close()
+
+
 #simular envio
 print("Enviando documento\n")
 time.sleep(2)
@@ -43,6 +104,16 @@ print("Mensaje enviado\n")
 time.sleep(1)
 print("Mensaje recibido\n")
 time.sleep(1)
+
+
+#Descodificar Manchester
+
+mensajeBin = desManchester(mensajeBin)
+f = open ("desManchester.txt", "w")
+f.write (mensajeBin)
+f.close()
+
+
 
 #convertir a texto
 print("Convirtiendo binario a texto...\n")
