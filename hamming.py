@@ -83,14 +83,91 @@ def paridad (cadenaAuto):
 					cadenaTemporal[3]= "1"		
 			cadena = ''
 			i = i+1;			
-
 		j=j+1
+		
+def comproHamming(cadenaAuto):
+	cadena = ''
+	resultadosParidad = ''
+	for j in range(len(cadenaAuto)):
+		i=0
+		cadenaTemporal = cadenaAuto[j]
+		while(i<len(cadenaTemporal)):
+			if (i==0):
+				cadena = cadena + str(cadenaTemporal[0])
+				cadena = cadena + str(cadenaTemporal[2])
+				cadena = cadena + str(cadenaTemporal[4])
+				cadena = cadena + str(cadenaTemporal[6])
+				
+				if(cadena.count("1")%2==0):
+					resultadosParidad = resultadosParidad + str(0)
+				else:
+					resultadosParidad = resultadosParidad + str(1)
+	
+			if (i==1):
+				cadena = ''
+				cadena = cadena + str(cadenaTemporal[1])
+				cadena = cadena + str(cadenaTemporal[2])
+				cadena = cadena + str(cadenaTemporal[5])
+				cadena = cadena + str(cadenaTemporal[6])
+				
+				if(cadena.count("1")%2==0):
+					resultadosParidad = resultadosParidad + str(0)
+				else:
+					resultadosParidad = resultadosParidad + str(1)
+			if(i==3):
+				cadena = ''
+				cadena = cadena + str(cadenaTemporal[3])
+				cadena = cadena + str(cadenaTemporal[4])
+				cadena = cadena + str(cadenaTemporal[5])
+				cadena = cadena + str(cadenaTemporal[6])
+				
+				if(cadena.count("1")%2==0):
+					resultadosParidad = resultadosParidad + str(0)
+				else:
+					resultadosParidad = resultadosParidad + str(1)
+			cadena = ''
+			i = i+1;			
+		j=j+1
+		if(resultadosParidad.count(0) != 3):
+			posicionError = convercionDecimal (resultadosParidad)
+			if(cadenaTemporal[posicionError] == '0'):
+				cadenaTemporal[posicionError] = '1'
+			else:
+				cadenaTemporal[posicionError] = 'o'
 
 
-f = open ("manchester.txt", "r")
-mensaje = f.read()
+def convercionDecimal(resultadosParidad):
+	escritor = resultadosParidad
+	cadenaInvertida = escritor[::-1]
 
-#mensaje = "1000110101011101"
+	if(cadenaInvertida == '001'):
+		return 0
+	if(cadenaInvertida == '010'):
+		return 1
+	if(cadenaInvertida == '011'):
+		return 2
+	if(cadenaInvertida == '100'):
+		return 3
+	if(cadenaInvertida == '101'):
+		return 4
+	if(cadenaInvertida == '110'):
+		return 5
+	if(cadenaInvertida == '111'):
+		return 6
+	
+
+
+
+
+
+#f = open ("manchester.txt", "r")
+#mensaje = f.read()
+
+mensaje = "1000110101011101"
 listaPalabras = dividirPalabras(4,mensaje)
 paridad(agrRedundancia(listaPalabras,3))
 print(listaPalabras)
+#resutadosBitsParidad = comproHamming(listaPalabras)
+#listaPalabras = dividirPalabras(7, mensaje)
+convercionDecimal('hola')
+

@@ -48,7 +48,7 @@ def desManchester(mensaje):
     return desCodigo
 
 
-mensaje = ('01')
+mensaje = ('010101010101010101')
 
 codigoM = manchester(mensaje)
 print(codigoM)
