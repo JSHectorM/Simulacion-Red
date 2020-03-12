@@ -2,42 +2,14 @@ import random
 #from matplotlib import *
 import time
 
-def lee(nombre):
-	archivo = open(nombre,"r")
-	mensaje = archivo.read()
-	archivo.close()
-	return mensaje
-
-def escribe(nombre,mensaje,escritura):
-	archivo = open (nombre,escritura)
-	archivo.write(mensaje)
-	archivo.close()		
-
-def cadenaBits(tamaño):
-	i=1;
-	cadena = ""	
-	while (i<=tamaño):
-		cadena = cadena + str(random.randrange(2))
-		#if i%8 == 0:
-			#cadena = cadena + " "
-		i=i+1
-	return cadena
-
-def codmanchester():
-	#0 = nivel bajo 1= nivel alto
-	escribe("bits.txt",cadenaBits(32),"w")
-	cadena = lee("bits.txt")
-	i=0;
-	indice = ""
-	codificado = ""
-	for bit in cadena:
-		i=i+1
-		indice = str(i)
-		if(bit == "0"):
-			codificado = codificado + "-1"
-		else:
-			codificado = codificado + "0"	
-	return codificado
+def agrRedundancia(listaPalabras,bitRed):
+	listRedundante= [];
+	for i in range(len(listaPalabras)):
+		palabra = listaPalabras[i]
+		for j in range(bitRed):
+			palabra.insert(2**j-1,"*")
+		listRedundante.append(palabra)
+	return listRedundante		
 
 def ruido(cadena):
 	i=7;
@@ -58,21 +30,8 @@ def ruido(cadena):
 		cadRuido = cadRuido + cadena2		
 	return cadRuido
 
-def convBinario(mensaje):
-	mensaje = mensaje.encode()
-	binInt = int.from_bytes(mensaje,"big")
-	mensajeBin = bin(binInt)
-	return mensajeBin
 
-def convTexto(mensaje):
-	binInt = int(mensaje,2)
-	byteNumero = binInt.bit_length() + 7 // 8
-	binArray = binInt.to_bytes(byteNumero,"big")
-	mensaje = binArray.decode()
-	print (mensaje)
-	return mensaje
-
-def palabras(tamaño,mensaje):
+def dividirPalabras(tamaño,mensaje):
 	palabras=[];
 	i= 0;
 	for j in range(int(len(mensaje)/tamaño)):
@@ -81,16 +40,6 @@ def palabras(tamaño,mensaje):
 		palabras.append(palabra2)
 		i=i+tamaño
 	return palabras
-
-def agrRedundancia(listaPalabras,bitRed):
-	listRedundante= [];
-	for i in range(len(listaPalabras)):
-		palabra = listaPalabras[i]
-		for j in range(bitRed):
-			palabra.insert(2**j-1,"*")
-		listRedundante.append(palabra)
-	return listRedundante		
-
 
 
 def paridad (cadenaAuto):
@@ -136,20 +85,12 @@ def paridad (cadenaAuto):
 			i = i+1;			
 
 		j=j+1
-	'''fila= cadena.count("*")
-	cadenaTemporal = []
-	i=0;
-	while (fila>i):
-		salto = 2**(i)
-		for j in range(len(cadenaAuto)):
-			if (j%2==0 and cadenaAuto[j]!="*"):
-				cadenaTemporal = cadenaTemporal + cadenaAuto[j]
-			salto = salto+
-		i=i+1'''
 
 
+f = open ("manchester.txt", "r")
+mensaje = f.read()
 
-mensaje = "1000110101011101"
-listaPalabras = palabras(4,mensaje)
+#mensaje = "1000110101011101"
+listaPalabras = dividirPalabras(4,mensaje)
 paridad(agrRedundancia(listaPalabras,3))
 print(listaPalabras)
