@@ -133,7 +133,7 @@ def comproHamming(cadenaAuto):
 			if(cadenaTemporal[posicionError] == '0'):
 				cadenaTemporal[posicionError] = '1'
 			else:
-				cadenaTemporal[posicionError] = 'o'
+				cadenaTemporal[posicionError] = '0'
 
 
 def convercionDecimal(resultadosParidad):
@@ -167,7 +167,7 @@ mensaje = "1000110101011101"
 listaPalabras = dividirPalabras(4,mensaje)
 paridad(agrRedundancia(listaPalabras,3))
 print(listaPalabras)
-#resutadosBitsParidad = comproHamming(listaPalabras)
-#listaPalabras = dividirPalabras(7, mensaje)
-convercionDecimal('hola')
+comproHamming(listaPalabras)
+listaPalabras = dividirPalabras(7, mensaje)
+#convercionDecimal('001')
 
